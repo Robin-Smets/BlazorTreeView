@@ -1,0 +1,327 @@
+﻿@page "/"
+
+<PageTitle>BlazorTreeView Showcase</PageTitle>
+
+<div class="showcase-container">
+    <header class="showcase-header">
+        <h1>🌳 BlazorTreeView Showcase</h1>
+        <p class="subtitle">A powerful and flexible tree view component for Blazor applications</p>
+    </header>
+
+    <main class="showcase-content">
+        <section class="feature-section">
+            <div class="section-header">
+                <h2>Interactive Tree View Demo</h2>
+                <p>Expand and select items to explore the component's features</p>
+            </div>
+
+            <div class="treeview-wrapper">
+                @if (SampleNodes != null)
+                {
+                    <TreeView 
+                        Nodes="SampleNodes" 
+                        OnNodeToggled="HandleNodeToggled"
+                        OnNodeSelected="HandleNodeSelected" />
+                }
+            </div>
+
+            @if (!string.IsNullOrEmpty(selectedNodeLabel))
+            {
+                <div class="selected-info">
+                    <div class="info-icon">ℹ️</div>
+                    <div class="info-content">
+                        <strong>Selected Node:</strong>
+                        <span class="selected-label">@selectedNodeLabel</span>
+                    </div>
+                </div>
+            }
+        </section>
+
+        <aside class="features-sidebar">
+            <h3>Features</h3>
+            <ul class="features-list">
+                <li>✅ Hierarchical data visualization</li>
+                <li>✅ Expand/Collapse functionality</li>
+                <li>✅ Node selection</li>
+                <li>✅ Selectable/Non-selectable nodes</li>
+                <li>✅ Customizable styling</li>
+                <li>✅ Event callbacks</li>
+                <li>✅ Recursive child rendering</li>
+                <li>✅ Built with Blazor components</li>
+            </ul>
+        </aside>
+    </main>
+
+    <footer class="showcase-footer">
+        <p>&copy; 2026 BlazorTreeView - A Blazor Component Library</p>
+    </footer>
+</div>
+
+@code {
+    private List<TreeNodeData>? SampleNodes;
+    private string selectedNodeLabel = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        // Create comprehensive sample tree data
+        SampleNodes = new List<TreeNodeData>
+        {
+            new TreeNodeData
+            {
+                Id = "folder-docs",
+                Label = "📄 Documents",
+                IsSelectable = true,
+                Children = new List<TreeNodeData>
+                {
+                    new TreeNodeData 
+                    { 
+                        Id = "proj-a",
+                        Label = "📁 Project A",
+                        IsSelectable = true,
+                        Children = new List<TreeNodeData>
+                        {
+                            new TreeNodeData { Id = "proj-a-readme", Label = "README.md", IsSelectable = true },
+                            new TreeNodeData { Id = "proj-a-config", Label = "config.json", IsSelectable = true }
+                        }
+                    },
+                    new TreeNodeData 
+                    { 
+                        Id = "proj-b",
+                        Label = "📁 Project B",
+                        IsSelectable = true,
+                        Children = new List<TreeNodeData>
+                        {
+                            new TreeNodeData 
+                            { 
+                                Id = "proj-b-design",
+                                Label = "🎨 Design",
+                                IsSelectable = false,
+                                Children = new List<TreeNodeData>
+                                {
+                                    new TreeNodeData { Id = "design-ui", Label = "UI Mockups", IsSelectable = true },
+                                    new TreeNodeData { Id = "design-ux", Label = "UX Flow", IsSelectable = true }
+                                }
+                            },
+                            new TreeNodeData 
+                            { 
+                                Id = "proj-b-impl",
+                                Label = "💻 Implementation",
+                                IsSelectable = true,
+                                Children = new List<TreeNodeData>
+                                {
+                                    new TreeNodeData { Id = "impl-backend", Label = "Backend", IsSelectable = true },
+                                    new TreeNodeData { Id = "impl-frontend", Label = "Frontend", IsSelectable = true }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            new TreeNodeData
+            {
+                Id = "folder-media",
+                Label = "🖼️ Media",
+                IsSelectable = true,
+                Children = new List<TreeNodeData>
+                {
+                    new TreeNodeData { Id = "screenshots", Label = "📸 Screenshots", IsSelectable = true },
+                    new TreeNodeData { Id = "icons", Label = "🎯 Icons", IsSelectable = true },
+                    new TreeNodeData 
+                    { 
+                        Id = "videos",
+                        Label = "🎬 Videos",
+                        IsSelectable = true,
+                        Children = new List<TreeNodeData>
+                        {
+                            new TreeNodeData { Id = "tutorial", Label = "Tutorial.mp4", IsSelectable = true },
+                            new TreeNodeData { Id = "demo", Label = "Demo.mp4", IsSelectable = true }
+                        }
+                    }
+                }
+            },
+            new TreeNodeData
+            {
+                Id = "archive",
+                Label = "📦 Archive",
+                IsSelectable = false,
+                Children = new List<TreeNodeData>
+                {
+                    new TreeNodeData { Id = "backup-2025", Label = "Backup 2025", IsSelectable = true },
+                    new TreeNodeData { Id = "backup-2024", Label = "Backup 2024", IsSelectable = true }
+                }
+            }
+        };
+    }
+
+    private Task HandleNodeToggled(TreeNodeData node)
+    {
+        Console.WriteLine($"Node toggled: {node.Label}");
+        return Task.CompletedTask;
+    }
+
+    private Task HandleNodeSelected(TreeNodeData node)
+    {
+        selectedNodeLabel = node.Label;
+        return Task.CompletedTask;
+    }
+}
+
+<style>
+    .showcase-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .showcase-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 3rem 2rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .showcase-header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        margin: 0.5rem 0 0 0;
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .showcase-content {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex: 1;
+    }
+
+    .feature-section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+        font-size: 1.8rem;
+    }
+
+    .section-header p {
+        margin: 0;
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    .treeview-wrapper {
+        background: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .selected-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+        border-left: 4px solid #4caf50;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    .info-icon {
+        font-size: 1.5rem;
+    }
+
+    .info-content {
+        flex: 1;
+    }
+
+    .info-content strong {
+        display: block;
+        color: #2e7d32;
+        margin-bottom: 0.25rem;
+    }
+
+    .selected-label {
+        color: #1b5e20;
+        font-weight: 600;
+    }
+
+    .features-sidebar {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        height: fit-content;
+    }
+
+    .features-sidebar h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 1.2rem;
+    }
+
+    .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .features-list li {
+        padding: 0.75rem 0;
+        color: #555;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 0.9rem;
+    }
+
+    .features-list li:last-child {
+        border-bottom: none;
+    }
+
+    .showcase-footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1.5rem;
+        margin-top: auto;
+        font-size: 0.9rem;
+    }
+
+    .showcase-footer p {
+        margin: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .showcase-content {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+
+        .showcase-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .features-sidebar {
+            order: -1;
+        }
+    }
+</style>

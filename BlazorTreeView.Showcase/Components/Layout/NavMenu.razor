@@ -1,0 +1,79 @@
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <span class="navbar-brand-icon">🌳</span>
+            <span class="navbar-brand-text">BlazorTreeView</span>
+        </a>
+        <span class="navbar-subtitle">Showcase</span>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span>
+                Home
+            </NavLink>
+        </div>
+
+        <div class="nav-section-title px-3">
+            Resources
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link" href="https://github.com" target="_blank">
+                <span class="bi bi-github" aria-hidden="true"></span>
+                GitHub
+            </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link" href="https://blazor.net" target="_blank">
+                <span class="bi bi-book" aria-hidden="true"></span>
+                Blazor Docs
+            </a>
+        </div>
+    </nav>
+</div>
+
+<style>
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .navbar-brand-icon {
+        font-size: 1.5rem;
+    }
+
+    .navbar-brand-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .navbar-subtitle {
+        margin-left: auto;
+        font-size: 0.8rem;
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .nav-section-title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+</style>

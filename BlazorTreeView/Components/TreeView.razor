@@ -1,0 +1,51 @@
+@using BlazorTreeView.Models
+@namespace BlazorTreeView.Components
+
+<div class="tree-view">
+    @if (Nodes != null && Nodes.Count > 0)
+    {
+        @foreach (var node in Nodes)
+        {
+            <TreeNode 
+                Node="node" 
+                OnNodeToggled="HandleNodeToggled"
+                OnNodeSelected="HandleNodeSelected"
+                Level="0" />
+        }
+    }
+    else
+    {
+        <div class="tree-view-empty">No data</div>
+    }
+</div>
+
+@code {
+    /// <summary>
+    /// The root nodes to display in the tree.
+    /// </summary>
+    [Parameter]
+    public List<TreeNodeData>? Nodes { get; set; }
+
+    /// <summary>
+    /// Callback fired when a node is expanded or collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TreeNodeData> OnNodeToggled { get; set; }
+
+    /// <summary>
+    /// Callback fired when a node is selected.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TreeNodeData> OnNodeSelected { get; set; }
+
+    private async Task HandleNodeToggled(TreeNodeData node)
+    {
+        node.IsExpanded = !node.IsExpanded;
+        await OnNodeToggled.InvokeAsync(node);
+    }
+
+    private async Task HandleNodeSelected(TreeNodeData node)
+    {
+        await OnNodeSelected.InvokeAsync(node);
+    }
+}

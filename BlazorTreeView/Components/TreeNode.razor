@@ -1,0 +1,79 @@
+@using BlazorTreeView.Models
+@namespace BlazorTreeView.Components
+
+<div class="tree-node">
+    <div class="tree-node-content" style="margin-left: @(Level * 20)px">
+        @if (Node.Children.Count > 0)
+        {
+            <button 
+                class="tree-node-toggle" 
+                @onclick="@(() => OnNodeToggled.InvokeAsync(Node))">
+                @if (Node.IsExpanded)
+                {
+                    <span>▼</span>
+                }
+                else
+                {
+                    <span>▶</span>
+                }
+            </button>
+        }
+        else
+        {
+            <span class="tree-node-spacer"></span>
+        }
+        
+        @if (Node.IsSelectable)
+        {
+            <button 
+                class="tree-node-label" 
+                @onclick="@(() => OnNodeSelected.InvokeAsync(Node))">
+                @Node.Label
+            </button>
+        }
+        else
+        {
+            <span class="tree-node-label-static">@Node.Label</span>
+        }
+    </div>
+
+    @if (Node.IsExpanded && Node.Children.Count > 0)
+    {
+        <div class="tree-node-children">
+            @foreach (var child in Node.Children)
+            {
+                <TreeNode 
+                    Node="child" 
+                    OnNodeToggled="OnNodeToggled"
+                    OnNodeSelected="OnNodeSelected"
+                    Level="@(Level + 1)" />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    /// <summary>
+    /// The node data to render.
+    /// </summary>
+    [Parameter]
+    public required TreeNodeData Node { get; set; }
+
+    /// <summary>
+    /// Callback fired when toggle button is clicked.
+    /// </summary>
+    [Parameter]
+    public required EventCallback<TreeNodeData> OnNodeToggled { get; set; }
+
+    /// <summary>
+    /// Callback fired when node label is clicked.
+    /// </summary>
+    [Parameter]
+    public required EventCallback<TreeNodeData> OnNodeSelected { get; set; }
+
+    /// <summary>
+    /// Indentation level (0 for root nodes).
+    /// </summary>
+    [Parameter]
+    public int Level { get; set; } = 0;
+}
