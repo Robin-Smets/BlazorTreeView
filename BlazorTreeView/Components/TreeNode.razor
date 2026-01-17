@@ -7,7 +7,7 @@
         {
             <button 
                 class="tree-node-toggle" 
-                @onclick="@(() => OnNodeToggled.InvokeAsync(Node))">
+                @onclick="OnToggle">
                 @if (Node.IsExpanded)
                 {
                     <span>▼</span>
@@ -27,7 +27,7 @@
         {
             <button 
                 class="tree-node-label" 
-                @onclick="@(() => OnNodeSelected.InvokeAsync(Node))">
+                @onclick="OnSelect">
                 @Node.Label
             </button>
         }
@@ -76,4 +76,15 @@
     /// </summary>
     [Parameter]
     public int Level { get; set; } = 0;
+
+    private async Task OnToggle()
+    {
+        Node.IsExpanded = !Node.IsExpanded;
+        await OnNodeToggled.InvokeAsync(Node);
+    }
+
+    private async Task OnSelect()
+    {
+        await OnNodeSelected.InvokeAsync(Node);
+    }
 }

@@ -39,13 +39,14 @@
     public EventCallback<TreeNodeData> OnNodeSelected { get; set; }
 
     private async Task HandleNodeToggled(TreeNodeData node)
-    {
-        node.IsExpanded = !node.IsExpanded;
+    {     
         await OnNodeToggled.InvokeAsync(node);
+        StateHasChanged();
     }
 
     private async Task HandleNodeSelected(TreeNodeData node)
     {
         await OnNodeSelected.InvokeAsync(node);
+        StateHasChanged();
     }
 }

@@ -50,11 +50,22 @@
             new TreeNodeData
             {
                 Id = "2",
-                Label = "Images",
+                Label = "Media",
+                IsExpanded = true,
                 Children = new List<TreeNodeData>
                 {
                     new TreeNodeData { Id = "2.1", Label = "Screenshots" },
                     new TreeNodeData { Id = "2.2", Label = "Icons" }
+                }
+            },
+            new TreeNodeData
+            {
+                Id = "3",
+                Label = "Archive",
+                Children = new List<TreeNodeData>
+                {
+                    new TreeNodeData { Id = "3.1", Label = "Old Projects" },
+                    new TreeNodeData { Id = "3.2", Label = "Backups" }
                 }
             }
         };
@@ -62,12 +73,14 @@
 
     private Task HandleNodeToggled(TreeNodeData node)
     {
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task HandleNodeSelected(TreeNodeData node)
     {
         selectedNodeLabel = node.Label;
+        StateHasChanged();
         return Task.CompletedTask;
     }
 }

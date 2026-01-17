@@ -1,4 +1,5 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>BlazorTreeView Showcase</PageTitle>
 
@@ -25,7 +26,7 @@
                 }
             </div>
 
-            @if (!string.IsNullOrEmpty(selectedNodeLabel))
+            @if (!string.IsNullOrEmpty(selectedNodeLabel)) // CODEX: move in treeview Under the Trees as detail view
             {
                 <div class="selected-info">
                     <div class="info-icon">ℹ️</div>
@@ -155,6 +156,7 @@
 
     private Task HandleNodeToggled(TreeNodeData node)
     {
+        //InvokeAsync(StateHasChanged);
         Console.WriteLine($"Node toggled: {node.Label}");
         return Task.CompletedTask;
     }
