@@ -1,3 +1,0 @@
-[submodule "lib/firewall-orchestrator"]
-	path = lib/firewall-orchestrator
-	url = https://github.com/CactuseSecurity/firewall-orchestrator.git
