@@ -19,32 +19,34 @@
     }
 </div>
 
+@typeparam T
+
 @code {
     /// <summary>
     /// The root nodes to display in the tree.
     /// </summary>
     [Parameter]
-    public List<TreeNodeData>? Nodes { get; set; }
+    public List<TreeNodeData<T>>? Nodes { get; set; }
 
     /// <summary>
     /// Callback fired when a node is expanded or collapsed.
     /// </summary>
     [Parameter]
-    public EventCallback<TreeNodeData> OnNodeToggled { get; set; }
+    public EventCallback<TreeNodeData<T>> OnNodeToggled { get; set; }
 
     /// <summary>
     /// Callback fired when a node is selected.
     /// </summary>
     [Parameter]
-    public EventCallback<TreeNodeData> OnNodeSelected { get; set; }
+    public EventCallback<TreeNodeData<T>> OnNodeSelected { get; set; }
 
-    private async Task HandleNodeToggled(TreeNodeData node)
+    private async Task HandleNodeToggled(TreeNodeData<T> node)
     {     
         await OnNodeToggled.InvokeAsync(node);
         StateHasChanged();
     }
 
-    private async Task HandleNodeSelected(TreeNodeData node)
+    private async Task HandleNodeSelected(TreeNodeData<T> node)
     {
         await OnNodeSelected.InvokeAsync(node);
         StateHasChanged();

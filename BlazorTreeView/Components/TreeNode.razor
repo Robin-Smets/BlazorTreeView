@@ -52,24 +52,26 @@
     }
 </div>
 
+@typeparam T
+
 @code {
     /// <summary>
     /// The node data to render.
     /// </summary>
     [Parameter]
-    public required TreeNodeData Node { get; set; }
+    public required TreeNodeData<T> Node { get; set; }
 
     /// <summary>
     /// Callback fired when toggle button is clicked.
     /// </summary>
     [Parameter]
-    public required EventCallback<TreeNodeData> OnNodeToggled { get; set; }
+    public required EventCallback<TreeNodeData<T>> OnNodeToggled { get; set; }
 
     /// <summary>
     /// Callback fired when node label is clicked.
     /// </summary>
     [Parameter]
-    public required EventCallback<TreeNodeData> OnNodeSelected { get; set; }
+    public required EventCallback<TreeNodeData<T>> OnNodeSelected { get; set; }
 
     /// <summary>
     /// Indentation level (0 for root nodes).

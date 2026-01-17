@@ -3,7 +3,7 @@ namespace BlazorTreeView.Models;
 /// <summary>
 /// Represents a node in a tree structure.
 /// </summary>
-public class TreeNodeData
+public class TreeNodeData<T>
 {
     /// <summary>
     /// Unique identifier for the node.
@@ -18,12 +18,12 @@ public class TreeNodeData
     /// <summary>
     /// Child nodes of this node.
     /// </summary>
-    public List<TreeNodeData> Children { get; set; } = new();
+    public List<TreeNodeData<T>> Children { get; set; } = new();
 
     /// <summary>
     /// Optional custom data associated with the node.
     /// </summary>
-    public object? Data { get; set; }
+    public T? Data { get; set; }
 
     /// <summary>
     /// Whether the node is expanded (showing children).
