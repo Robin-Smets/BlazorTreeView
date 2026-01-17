@@ -25,6 +25,8 @@ public class TreeNodeData<T>
     /// </summary>
     public T? Data { get; set; }
 
+    public Dictionary<string, string> DisplayData { get; set; } = new();
+
     /// <summary>
     /// Whether the node is expanded (showing children).
     /// </summary>

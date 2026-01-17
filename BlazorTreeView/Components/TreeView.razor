@@ -55,6 +55,14 @@
             {
                 <span class="tree-node-label-disabled">@node.Label</span>
             }
+
+            @if (node.DisplayData != null)
+            {
+                @foreach (var kvp in node.DisplayData)
+                {  // TODO: Above left alignt, smaller and gray the Key            
+                    <span class="tree-node-data">@kvp.Value</span>
+                }
+            }
         </div>
 
         @if (node.IsExpanded && node.Children.Count > 0)

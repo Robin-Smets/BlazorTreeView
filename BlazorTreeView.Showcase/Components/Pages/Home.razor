@@ -218,6 +218,11 @@
         node.IsExpanded = !node.IsExpanded;
         StateHasChanged();
     }
+
+    private async Task SelectNode(TreeNodeData<object> node)
+    {
+        StateHasChanged();
+    }
 }
 
 <style>
