@@ -19,10 +19,7 @@
             <div class="treeview-wrapper">
                 @if (SampleNodes != null)
                 {
-                    <TreeView 
-                        Nodes="SampleNodes" 
-                        OnNodeToggled="HandleNodeToggled"
-                        OnNodeSelected="HandleNodeSelected" />
+                    @RenderTreeView()
                 }
             </div>
 
@@ -156,7 +153,6 @@
 
     private Task HandleNodeToggled(TreeNodeData<object> node)
     {
-        //InvokeAsync(StateHasChanged);
         Console.WriteLine($"Node toggled: {node.Label}");
         return Task.CompletedTask;
     }
@@ -165,6 +161,62 @@
     {
         selectedNodeLabel = node.Label;
         return Task.CompletedTask;
+    }
+
+    private RenderFragment RenderTreeView() => @<div class="tree-view">
+        @foreach (var node in SampleNodes ?? new())
+        {
+            @RenderNode(node, 0)
+        }
+    </div>;
+
+    private RenderFragment RenderNode(TreeNodeData<object> node, int level) => @<div class="tree-node" style="margin-left: @(level * 20)px">
+        <div class="tree-node-content">
+            @if (node.Children.Count > 0)
+            {
+                <button class="tree-node-toggle" @onclick="@(async () => await ToggleNode(node))">
+                    @if (node.IsExpanded)
+                    {
+                        <span>▼</span>
+                    }
+                    else
+                    {
+                        <span>▶</span>
+                    }
+                </button>
+            }
+            else
+            {
+                <span class="tree-node-spacer"></span>
+            }
+            
+            @if (node.IsSelectable)
+            {
+                <button class="tree-node-label" @onclick="@(async () => await SelectNode(node))">
+                    @node.Label
+                </button>
+            }
+            else
+            {
+                <span class="tree-node-label-disabled">@node.Label</span>
+            }
+        </div>
+
+        @if (node.IsExpanded && node.Children.Count > 0)
+        {
+            <div class="tree-node-children">
+                @foreach (var child in node.Children)
+                {
+                    @RenderNode(child, level + 1)
+                }
+            </div>
+        }
+    </div>;
+
+    private async Task ToggleNode(TreeNodeData<object> node)
+    {
+        node.IsExpanded = !node.IsExpanded;
+        StateHasChanged();
     }
 }
 
